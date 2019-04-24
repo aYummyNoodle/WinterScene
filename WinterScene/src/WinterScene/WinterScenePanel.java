@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class WinterScenePanel extends JPanel implements Runnable
 {
 	private List<AbstractShape> shapes;
+	private List<AbstractShape> shapes2;
 	private AbstractShape sMan;
 
 	public WinterScenePanel()
@@ -29,6 +30,7 @@ public class WinterScenePanel extends JPanel implements Runnable
 		//instantiate a snowman
 		
 		shapes = new ArrayList<AbstractShape>();
+		shapes2 = new ArrayList<AbstractShape>();
 		
 		for (int i = 0; i < 50; i++)
 		{
@@ -36,6 +38,15 @@ public class WinterScenePanel extends JPanel implements Runnable
 			int s = (int)(Math.random() * 30) + 20;
 			shapes.add(new SimpleSnowflake(i * 14, y, s, s));
 		}
+		
+		for (int i = 0; i < 50; i++)
+		{
+			int y2 = (int)(Math.random() * 600);
+			int s2 = (int)(Math.random() * 30) + 20;
+			shapes2.add(new FancySnowFlake(i * 14, y2, s2, s2));
+		}
+		
+		
 		
 		sMan = new SnowMan(200, 300, 20, 20);
 
@@ -61,6 +72,13 @@ public class WinterScenePanel extends JPanel implements Runnable
 		sMan.draw(window);
 		
 		for (AbstractShape as : shapes)
+		{
+			as.moveAndDraw(window);
+			if (as.getYPos() >= getHeight())
+				as.setYPos(0);
+		}
+		
+		for (AbstractShape as : shapes2)
 		{
 			as.moveAndDraw(window);
 			if (as.getYPos() >= getHeight())
